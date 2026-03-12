@@ -1,9 +1,9 @@
 // 1. Список товаров
 const products = [
-    { id: 1, name: 'Cloud Hoodie', price: 4500, img: '☁️' },
-    { id: 2, name: 'Oblako T-Shirt', price: 2200, img: '👕' },
-    { id: 3, name: 'Admin Cap', price: 1500, img: '🧢' },
-    { id: 4, name: 'Dev Backpack', price: 6800, img: '🎒' }
+    { id: 1, name: 'Odin', price: 6700, img: '☁️' },
+    { id: 2, name: 'Totem ', price: 4500, img: '👕' },
+    { id: 3, name: 'Sky', price: 3400, img: '🧢' },
+    { id: 4, name: 'Karma', price: 7400, img: '🎒' }
 ];
 
 let cart = JSON.parse(localStorage.getItem('oblakoteam_cart')) || [];
@@ -70,3 +70,4 @@ document.addEventListener('DOMContentLoaded', () => {
     displayProducts();
     updateCart();
 });
+
