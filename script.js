@@ -60,8 +60,9 @@ window.sendOrder = () => {
     const text = cart.map(item => `- ${item.name} (${item.price} ₴)`).join('%0A');
     const total = cart.reduce((s, i) => s + i.price, 0);
     // Ссылка на твой Telegram (замени "твой_ник")
-    window.open(`https://t.me/твой_ник?text=Новый заказ!%0A${text}%0A%0AИтого: ${total} ₴`);
+    window.open(`https://t.me/@Market199text=Новый заказ!%0A${text}%0A%0AИтого: ${total} ₴`);
 };
 
 render();
 updateCart();
+
