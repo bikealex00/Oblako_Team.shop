@@ -1,73 +1,67 @@
-// 1. Список товаров
 const products = [
-    { id: 1, name: 'Odin', price: 6700, img: '☁️' },
-    { id: 2, name: 'Totem ', price: 4500, img: '👕' },
-    { id: 3, name: 'Sky', price: 3400, img: '🧢' },
-    { id: 4, name: 'Karma', price: 7400, img: '🎒' }
+    { id: 1, name: 'Чаша Oblako Phunnel M Stone', price: 490, cat: 'Чаши', img: '🏺' },
+    { id: 2, name: 'Кальян Amy Deluxe SS', price: 3100, cat: 'Кальяны', img: '💨' },
+    { id: 3, name: 'Колба для кальяна Craft', price: 600, cat: 'Колбы', img: '⚱️' },
+    { id: 4, name: 'Щипцы для угля Blade', price: 380, cat: 'Аксессуары', img: '✂️' },
+    { id: 5, name: 'Шило Oblako Limited', price: 200, cat: 'Аксессуары', img: '📍' },
+    { id: 6, name: 'Силиконовый шланг Soft Touch', price: 250, cat: 'Аксессуары', img: '🐍' }
 ];
 
 let cart = JSON.parse(localStorage.getItem('oblakoteam_cart')) || [];
 
-// 2. Функция отрисовки товаров на главной
-function displayProducts() {
-    const container = document.getElementById('products-grid');
-    if(!container) return;
-    
-    container.innerHTML = products.map(product => `
+function render(items = products) {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = items.map(p => `
         <div class="card">
-            <div class="card-img">${product.img}</div>
-            <h3>${product.name}</h3>
-            <p>Цена: ${product.price} ₽</p>
-            <button class="btn-add" onclick="addToCart(${product.id})">В корзину</button>
+            <div class="card-img">${p.img}</div>
+            <p style="color:#888; font-size:12px; margin:0;">${p.cat}</p>
+            <h3>${p.name}</h3>
+            <span class="price">${p.price} ₴</span>
+            <button class="buy-btn" onclick="addToCart(${p.id})">Купить</button>
         </div>
     `).join('');
 }
 
-// 3. Добавление в корзину
+window.filterCat = (cat) => {
+    if (cat === 'Все') render(products);
+    else render(products.filter(p => p.cat === cat));
+};
+
 window.addToCart = (id) => {
-    const item = products.find(p => p.id === id);
-    cart.push(item);
-    updateCart();
-    alert(`${item.name} добавлен в корзину!`);
-};
-
-// 4. Обновление корзины
-function updateCart() {
-    localStorage.setItem('oblakoteam_cart', JSON.stringify(cart));
-    const cartCount = document.getElementById('cart-count');
-    if(cartCount) cartCount.innerText = cart.length;
-    renderCartItems();
-}
-
-function renderCartItems() {
-    const list = document.getElementById('cart-items-list');
-    const totalEl = document.getElementById('cart-total-price');
-    
-    list.innerHTML = cart.map((item, index) => `
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-            <span>${item.name}</span>
-            <b>${item.price} ₽</b>
-            <button onclick="removeFromCart(${index})" style="color:red; border:none; background:none; cursor:pointer;">✕</button>
-        </div>
-    `).join('');
-
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    totalEl.innerText = total + ' ₽';
-}
-
-window.removeFromCart = (index) => {
-    cart.splice(index, 1);
+    const p = products.find(x => x.id === id);
+    cart.push(p);
     updateCart();
 };
 
-// Переключатель корзины
 window.toggleCart = () => {
     document.getElementById('cart-sidebar').classList.toggle('active');
+    document.getElementById('cart-overlay').style.display = 
+        document.getElementById('cart-sidebar').classList.contains('active') ? 'block' : 'none';
 };
 
-// Инициализация
-document.addEventListener('DOMContentLoaded', () => {
-    displayProducts();
-    updateCart();
-});
+function updateCart() {
+    localStorage.setItem('oblakoteam_cart', JSON.stringify(cart));
+    document.getElementById('cart-count').innerText = cart.length;
+    const itemsDiv = document.getElementById('cart-items');
+    itemsDiv.innerHTML = cart.map((item, i) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+            <div style="font-size:14px;"><b>${item.name}</b><br>${item.price} ₴</div>
+            <button onclick="remove(${i})" style="border:none; background:none; color:red; cursor:pointer;">✕</button>
+        </div>
+    `).join('');
+    const total = cart.reduce((s, i) => s + i.price, 0);
+    document.getElementById('cart-total').innerText = total + ' ₴';
+}
 
+window.remove = (i) => { cart.splice(i, 1); updateCart(); };
+
+window.sendOrder = () => {
+    if(cart.length === 0) return alert('Корзина пуста');
+    const text = cart.map(item => `- ${item.name} (${item.price} ₴)`).join('%0A');
+    const total = cart.reduce((s, i) => s + i.price, 0);
+    // Ссылка на твой Telegram (замени "твой_ник")
+    window.open(`https://t.me/твой_ник?text=Новый заказ!%0A${text}%0A%0AИтого: ${total} ₴`);
+};
+
+render();
+updateCart();
