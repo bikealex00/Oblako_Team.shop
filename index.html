@@ -3,64 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OblakoTeam Store | Кальяны и аксессуары</title>
+    <title>OblakoTeam | Monochrome Hookah Shop</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="header">
-        <div class="top-nav">
-            <div class="container flex-between">
-                <div class="logo">OBLAKO<span>TEAM</span></div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Поиск аксессуаров...">
-                    <button>🔍</button>
-                </div>
-                <div class="header-actions">
-                    <button class="action-btn" onclick="toggleCart()">
-                        <span class="icon">🛒</span>
-                        <span id="cart-count">0</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <nav class="categories-nav">
-            <div class="container">
-                <ul class="cat-list">
-                    <li><a href="#" onclick="filterCat('Все')">Все товары</a></li>
-                    <li><a href="#" onclick="filterCat('Кальяны')">Кальяны</a></li>
-                    <li><a href="#" onclick="filterCat('Чаши')">Чаши</a></li>
-                    <li><a href="#" onclick="filterCat('Колбы')">Колбы</a></li>
-                    <li><a href="#" onclick="filterCat('Аксессуары')">Аксессуары</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <div class="cloud-bg">
+        <div class="cloud cloud-1">☁️</div>
+        <div class="cloud cloud-2">☁️</div>
+        <div class="cloud cloud-3">☁️</div>
+        <div class="cloud cloud-4">☁️</div>
+    </div>
 
-    <main class="container">
-        <section class="main-banner">
-            <div class="banner-text">
-                <h1>Премиальный мерч и аксессуары</h1>
-                <p>Твой лучший дым начинается здесь</p>
+    <div class="site-wrapper">
+        <header class="header">
+            <div class="top-nav">
+                <div class="container flex-between">
+                    <div class="logo">OBLAKO<span>TEAM</span></div>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Поиск аксессуаров...">
+                        <button>🔍</button>
+                    </div>
+                    <div class="header-actions">
+                        <button class="action-btn" onclick="toggleCart()">
+                            <span class="icon">🛒</span>
+                            <span id="cart-count">0</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </section>
+            
+            <nav class="categories-nav">
+                <div class="container">
+                    <ul class="cat-list">
+                        <li><a href="#" onclick="filterCat('Все')">Все</a></li>
+                        <li><a href="#" onclick="filterCat('Кальяны')">Кальяны</a></li>
+                        <li><a href="#" onclick="filterCat('Чаши')">Чаши</a></li>
+                        <li><a href="#" onclick="filterCat('Колбы')">Колбы</a></li>
+                        <li><a href="#" onclick="filterCat('Аксессуары')">Аксессуары</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
 
-        <h2 class="title">Популярные товары</h2>
-        <div class="grid" id="products-grid"></div>
-    </main>
+        <main class="container">
+            <section class="main-banner">
+                <div class="banner-text">
+                    <h1>Премиальный дым</h1>
+                    <p>Стиль. Качество. Твоя команда.</p>
+                </div>
+            </section>
+
+            <h2 class="title">Популярное в OblakoTeam</h2>
+            <div class="grid" id="products-grid"></div>
+        </main>
+    </div>
 
     <div id="cart-overlay" onclick="toggleCart()"></div>
     <div id="cart-sidebar">
-        <div class="cart-header">
+        <div class="cart-header flex-between">
             <h3>Моя корзина</h3>
             <button onclick="toggleCart()">✕</button>
         </div>
         <div id="cart-items"></div>
         <div class="cart-total">
-            <div class="total-row"><span>Всего к оплате:</span><span id="cart-total">0 ₴</span></div>
-            <button class="order-btn" onclick="sendOrder()">Оформить заказ</button>
+            <div class="total-row flex-between">
+                <span>Всего к оплате:</span>
+                <span id="cart-total">0 ₴</span>
+            </div>
+            <button class="order-btn" onclick="sendOrder()">Оформить заказ в Telegram</button>
         </div>
     </div>
 
