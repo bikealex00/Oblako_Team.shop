@@ -56,13 +56,26 @@ function updateCart() {
 window.remove = (i) => { cart.splice(i, 1); updateCart(); };
 
 window.sendOrder = () => {
-    if(cart.length === 0) return alert('Корзина пуста');
-    const text = cart.map(item => `- ${item.name} (${item.price} ₴)`).join('%0A');
-    const total = cart.reduce((s, i) => s + i.price, 0);
-    // Ссылка на твой Telegram (замени "твой_ник")
-    window.open(`https://t.me/@Market199text=Новый заказ!%0A${text}%0A%0AИтого: ${total} ₴`);
+    if(cart.length === 0) {
+        alert('Ваша корзина пуста!');
+        return;
+    }
+
+    // Формируем красивый список товаров для сообщения
+    const orderItems = cart.map(item => `• ${item.name} (${item.price} ₴)`).join('%0A');
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+    // Твой ник в Telegram (без @)
+    const telegramUsername = "Market199"; 
+    
+    // Формируем финальную ссылку
+    const message = `Вітаю! Хочу зробити замовлення в OblakoTeam Store:%0A%0A${orderItems}%0A%0A💰 Разом до оплати: ${total} ₴`;
+    const url = `https://t.me/${telegramUsername}?text=${message}`;
+
+    // Открываем чат в новом окне
+    window.open(url, '_blank');
+    
+    // Очищаем корзину после перехода (по желанию)
+    // cart = [];
+    // updateCart();
 };
-
-render();
-updateCart();
-
