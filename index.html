@@ -1,78 +1,67 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OblakoTeam | Monochrome Hookah Shop</title>
+    <title>OblakoTeam Store | Твій ідеальний вечір</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="cloud-bg">
-        <div class="cloud cloud-1">☁️</div>
-        <div class="cloud cloud-2">☁️</div>
-        <div class="cloud cloud-3">☁️</div>
-        <div class="cloud cloud-4">☁️</div>
+    <div class="clouds-container">
+        <div class="cloud c1">☁️</div>
+        <div class="cloud c2">☁️</div>
+        <div class="cloud c3">☁️</div>
     </div>
 
-    <div class="site-wrapper">
-        <header class="header">
-            <div class="top-nav">
-                <div class="container flex-between">
-                    <div class="logo">OBLAKO<span>TEAM</span></div>
-                    <div class="search-bar">
-                        <input type="text" placeholder="Поиск аксессуаров...">
-                        <button>🔍</button>
-                    </div>
-                    <div class="header-actions">
-                        <button class="action-btn" onclick="toggleCart()">
-                            <span class="icon">🛒</span>
-                            <span id="cart-count">0</span>
-                        </button>
-                    </div>
-                </div>
+    <header class="header">
+        <div class="container flex-header">
+            <div class="logo">OBLAKO<span>TEAM</span></div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Пошук аксесуарів...">
+                <button onclick="searchProduct()">🔍</button>
             </div>
-            
-            <nav class="categories-nav">
-                <div class="container">
-                    <ul class="cat-list">
-                        <li><a href="#" onclick="filterCat('Все')">Все</a></li>
-                        <li><a href="#" onclick="filterCat('Кальяны')">Кальяны</a></li>
-                        <li><a href="#" onclick="filterCat('Чаши')">Чаши</a></li>
-                        <li><a href="#" onclick="filterCat('Колбы')">Колбы</a></li>
-                        <li><a href="#" onclick="filterCat('Аксессуары')">Аксессуары</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+            <div class="cart-widget" onclick="toggleCart()">
+                <span class="cart-icon">🛒</span>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+        <nav class="nav-cats">
+            <div class="container flex-cats">
+                <button onclick="filterCat('Все')">Усі товари</button>
+                <button onclick="filterCat('Кальяни')">Кальяни</button>
+                <button onclick="filterCat('Чаші')">Чаші</button>
+                <button onclick="filterCat('Колби')">Колби</button>
+                <button onclick="filterCat('Аксесуари')">Аксесуари</button>
+            </div>
+        </nav>
+    </header>
 
-        <main class="container">
-            <section class="main-banner">
-                <div class="banner-text">
-                    <h1>Твій ідеальний вечір починається з Oblako</h1>
-                    <p>«Все необхідне для твого релаксу в одному місці. Створюємо правильну атмосферу разом»</p>
-                </div>
-            </section>
+    <main class="container">
+        <section class="hero-banner">
+            <h1>OblakoTeam</h1>
+            <p class="slogan">Твій ідеальний вечір починається з Oblako.</p>
+            <p class="subtext">Преміальні кальяни та аксесуари для тих, хто цінує якість.</p>
+        </section>
 
-            <h2 class="title">Популярне</h2>
-            <div class="grid" id="products-grid"></div>
-        </main>
-    </div>
+        <h2 class="section-title">Каталог товарів</h2>
+        <div class="products-grid" id="products-grid"></div>
+    </main>
 
     <div id="cart-overlay" onclick="toggleCart()"></div>
     <div id="cart-sidebar">
-        <div class="cart-header flex-between">
-            <h3>Моя корзина</h3>
-            <button onclick="toggleCart()">✕</button>
+        <div class="cart-top">
+            <h3>Ваше замовлення</h3>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
         </div>
-        <div id="cart-items"></div>
-        <div class="cart-total">
-            <div class="total-row flex-between">
-                <span>Всего к оплате:</span>
-                <span id="cart-total">0 ₴</span>
+        <div id="cart-items-content"></div>
+        <div class="cart-bottom">
+            <div class="total-row">
+                <span>Разом:</span>
+                <span id="total-price">0 ₴</span>
             </div>
-            <button class="order-btn" onclick="sendOrder()">Оформить заказ в Telegram</button>
+            <button class="order-submit" onclick="sendToTelegram()">Оформити у Telegram</button>
         </div>
     </div>
 
