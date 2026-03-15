@@ -63,7 +63,7 @@ window.sendToTelegram = () => {
     if(cart.length === 0) return alert('Кошик порожній!');
     const orderText = cart.map(item => `• ${item.name} (${item.price} ₴)`).join('%0A');
     const total = cart.reduce((s, i) => s + i.price, 0);
-    const message = `Нове замовлення OblakoTeam!%0A%0A${orderText}%0A%0AРазом: ${total} ₴`;
+    const message = `Вітаю! Хочу зробити замовлення в OblakoTeam Store:!%0A%0A${orderText}%0A%0AРазом: ${total} ₴`;
     window.open(`https://t.me/Market199?text=${message}`, '_blank');
 };
 
