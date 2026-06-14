@@ -1,17 +1,20 @@
+/* Загальні налаштування */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
-    background-color: #0b0b0b;
+    background-color: #060606;
     color: #ffffff;
     overflow-x: hidden;
     position: relative;
 }
 
+/* --- ОНОВЛЕНІ, БІЛЬШ ВИРАЖЕНІ ТА ГУСТІ ХМАРИ --- */
 .clouds-container {
     position: fixed;
     top: 0;
@@ -21,201 +24,408 @@ body {
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
-    opacity: 0.25;
+    opacity: 0.45; /* Збільшена чіткість та яскравість */
 }
 
 .cloud {
     position: absolute;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(200,200,200,0.3) 40%, rgba(0,0,0,0) 70%);
     border-radius: 50%;
-    filter: blur(20px);
+    filter: blur(30px); /* Потужне розмиття для м'якого об'єму */
 }
 
-.cloud-1 {
+/* Хмара 1 — Велика фонова */
+.cloud-deep-1 {
+    width: 700px;
+    height: 400px;
+    top: 10%;
+    left: -700px;
+    animation: floatDeep 55s linear infinite;
+}
+
+/* Хмара 2 — Густіша середня */
+.cloud-deep-2 {
+    width: 500px;
+    height: 300px;
+    top: 40%;
+    left: -500px;
+    animation: floatDeep 38s linear infinite;
+    animation-delay: 8s;
+}
+
+/* Хмара 3 — Швидка нижня */
+.cloud-deep-3 {
     width: 400px;
     height: 250px;
-    top: 15%;
+    top: 70%;
     left: -400px;
-    animation: floatHorizontal 35s linear infinite;
+    animation: floatDeep 28s linear infinite;
+    animation-delay: 15s;
 }
 
-.cloud-2 {
-    width: 600px;
-    height: 350px;
-    top: 45%;
-    left: -600px;
-    animation: floatHorizontal 50s linear infinite;
+/* Хмара 4 — Величезна верхня повільна */
+.cloud-deep-4 {
+    width: 900px;
+    height: 500px;
+    top: -5%;
+    left: -900px;
+    animation: floatDeep 70s linear infinite;
+    animation-delay: 3s;
 }
 
-.cloud-3 {
-    width: 300px;
-    height: 200px;
-    top: 75%;
-    left: -300px;
-    animation: floatHorizontal 25s linear infinite;
+@keyframes floatDeep {
+    0% { transform: translateX(0) scale(1); }
+    50% { transform: translateX(calc(50vw + 400px)) scale(1.15); } /* Створює ефект дихання диму */
+    100% { transform: translateX(calc(100vw + 950px)) scale(1); }
 }
 
-@keyframes floatHorizontal {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(100vw + 600px)); }
+/* --- ЕКРАН ПРИВІТАННЯ --- */
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(20, 5, 5, 0.98) 0%, rgba(6, 6, 6, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s ease;
+    text-align: center;
+    padding: 20px;
 }
 
+.welcome-content {
+    max-width: 650px;
+}
+
+.welcome-badge {
+    display: inline-block;
+    background-color: rgba(255, 0, 60, 0.15);
+    border: 1px solid #ff003c;
+    color: #ff003c;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.welcome-logo {
+    font-size: 54px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.welcome-logo span {
+    color: #ff003c;
+    text-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+}
+
+#welcome-screen h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+#welcome-screen p {
+    font-size: 16px;
+    color: #aaaaaa;
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+.btn-welcome {
+    font-size: 18px;
+    padding: 16px 45px;
+    box-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
+    animation: pulseButton 2.5s infinite;
+}
+
+@keyframes pulseButton {
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
+    50% { transform: scale(1.04); box-shadow: 0 0 35px rgba(255, 0, 60, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
+}
+
+/* Приховування та анімація контенту сайту */
+.hidden-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s ease;
+}
+
+.show-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- ХЕДЕР ТА МЕНЮ (НАВІГАЦІЯ) --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
-    background-color: #111111;
-    border-bottom: 2px solid #ff003c;
+    padding: 20px 8%;
+    background-color: rgba(10, 10, 10, 0.92);
+    border-bottom: 1px solid rgba(255, 0, 60, 0.3);
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(10px);
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 800;
 }
 
 .logo span {
     color: #ff003c;
 }
 
-.cart-icon {
-    background-color: #ff003c;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+nav a {
+    color: #bbbbbb;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s, text-shadow 0.3s;
 }
 
+nav a:hover {
+    color: #ff003c;
+    text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+}
+
+.cart-icon {
+    background-color: #ff003c;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.cart-icon:hover {
+    background-color: #cc0030;
+    transform: scale(1.05);
+}
+
+/* --- БАННЕР --- */
 .hero {
-    height: 40vh;
+    height: 55vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: #111;
+    background: linear-gradient(rgba(6,6,6,0.5), rgba(6,6,6,1)), url('https://images.unsplash.com/photo-1542332213-9b5a5a3fda35?q=80&w=1000') center/cover;
     padding: 20px;
 }
 
 .hero h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+    font-size: 52px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #cccccc;
+    margin-bottom: 30px;
 }
 
 .btn {
     display: inline-block;
     background-color: #ff003c;
     color: #fff;
-    padding: 12px 30px;
+    padding: 14px 35px;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
     font-weight: bold;
     border: none;
     cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
-main {
-    padding: 40px 5%;
+.btn:hover {
+    background-color: #cc0030;
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+}
+
+/* --- СЕКЦІЇ ТА КАТАЛОГ --- */
+main, .info-section {
+    padding: 80px 8%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 3px;
+    background-color: #ff003c;
+    margin: 15px auto 0;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
 }
 
 .product-card {
-    background-color: #161616;
-    border: 1px solid #222;
-    border-radius: 10px;
-    padding: 25px;
+    background-color: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 30px;
     text-align: center;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 0, 60, 0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.product-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #aaa;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
 }
 
 .product-img {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 72px;
+    margin: 20px 0;
+}
+
+.product-card h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
 .price {
-    font-size: 22px;
+    font-size: 24px;
     color: #ff003c;
-    font-weight: bold;
-    margin-bottom: 20px;
+    font-weight: 800;
+    margin-bottom: 25px;
 }
 
 .btn-buy {
     background: transparent;
     border: 2px solid #ff003c;
     color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
     width: 100%;
+    transition: background 0.3s;
 }
 
+.btn-buy:hover {
+    background-color: #ff003c;
+}
+
+/* --- СТИЛІ СЕКЦІЙ ПРО НАС, ВІДГУКИ, КОНТАКТИ --- */
+.info-section {
+    text-align: center;
+    line-height: 1.7;
+    font-size: 18px;
+    color: #dddddd;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.review-card {
+    background-color: #0f0f0f;
+    padding: 25px;
+    border-radius: 6px;
+    border-left: 3px solid #ff003c;
+    text-align: left;
+}
+
+.review-text {
+    font-style: italic;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.review-author {
+    color: #ff003c;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#contacts p {
+    margin-bottom: 15px;
+}
+
+/* --- КОШИК --- */
 .cart-modal {
     position: fixed;
     top: 0;
-    right: -400px;
-    width: 400px;
+    right: -450px;
+    width: 450px;
     height: 100%;
-    background-color: #111;
+    background-color: #0a0a0a;
     border-left: 2px solid #ff003c;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.7);
     z-index: 1000;
-    transition: right 0.4s ease;
-    padding: 30px;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 35px;
 }
 
-.cart-modal.active {
-    right: 0;
+@media(max-width: 500px) {
+    .cart-modal { width: 100%; right: -100%; }
 }
 
-.cart-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.close-cart {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-}
-
-#cart-items-list {
-    flex-grow: 1;
-    overflow-y: auto;
-}
+.cart-modal.active { right: 0; }
+.cart-content { display: flex; flex-direction: column; height: 100%; }
+.close-cart { position: absolute; top: 20px; right: 25px; font-size: 32px; cursor: pointer; color: #888; }
+.close-cart:hover { color: #fff; }
+.cart-modal h2 { margin-bottom: 25px; border-bottom: 1px solid #1a1a1a; padding-bottom: 15px; text-transform: uppercase; font-size: 24px; }
+#cart-items-list { flex-grow: 1; overflow-y: auto; }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
-    background-color: #1a1a1a;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #121212;
+    padding: 15px;
+    border-radius: 4px;
+    border-right: 2px solid #ff003c;
 }
 
-.empty-text {
-    color: #666;
-    text-align: center;
-    margin-top: 50px;
-}
-
-.cart-summary {
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-    margin: 20px 0;
-}
+.empty-text { color: #555; text-align: center; margin-top: 60px; font-size: 16px; }
+.cart-summary { display: flex; justify-content: space-between; font-size: 22px; font-weight: 800; margin: 25px 0; border-top: 1px solid #1a1a1a; padding-top: 20px; }
+#cart-total-price { color: #ff003c; }
+.btn-order { width: 100%; }
