@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OblakoTeam Store — Кальяни та Аксесуари</title>
+    <title>OblakoTeam Store</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,6 @@
         <div class="logo">OblakoTeam <span>Store</span></div>
         <nav>
             <a href="#catalog">Каталог</a>
-            <a href="#about">Про нас</a>
         </nav>
         <div class="cart-icon" onclick="toggleCart()">
             🛒 Кошик (<span id="cart-count">0</span>)
@@ -34,28 +33,18 @@
     <main id="catalog">
         <h2 class="section-title">Наш асортимент</h2>
         <div class="products-grid">
-            
             <div class="product-card">
                 <div class="product-img">💨</div>
                 <h3>Кальян Alpha Hookah</h3>
                 <p class="price">12000 <span>₴</span></p>
                 <button class="btn-buy" onclick="addToCart('Кальян Alpha Hookah', 12000)">У кошик</button>
             </div>
-
             <div class="product-card">
                 <div class="product-img">🥣</div>
                 <h3>Чаша Облако (Phunnel)</h3>
                 <p class="price">1500 <span>₴</span></p>
                 <button class="btn-buy" onclick="addToCart('Чаша Облако (Phunnel)', 1500)">У кошик</button>
             </div>
-
-            <div class="product-card">
-                <div class="product-img">🪵</div>
-                <h3>Вугілля CocoLoco 1кг</h3>
-                <p class="price">450 <span>₴</span></p>
-                <button class="btn-buy" onclick="addToCart('Вугілля CocoLoco 1кг', 450)">У кошик</button>
-            </div>
-
         </div>
     </main>
 
