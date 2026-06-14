@@ -134,6 +134,4 @@ function showThankYouModal() {
     `;
     
     document.body.appendChild(modal);
-
-    
 }
