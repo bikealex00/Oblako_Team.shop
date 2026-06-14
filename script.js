@@ -79,7 +79,7 @@ function updateCartUI() {
     totalPriceEl.textContent = `${totalSum} ₴`;
 }
 
-// Генерація повідомлення та надсилання в Telegram
+// Генерація повідомлення та надсилання в Telegram + Очищення кошика та Вікно Подяки
 function sendToTelegram() {
     if (cart.length === 0) {
         alert("Ваш кошик порожній!");
@@ -92,7 +92,7 @@ function sendToTelegram() {
     cart.forEach((item, index) => {
         const itemSum = item.price * item.quantity;
         totalSum += itemSum;
-        message += `${index + 1}. ${item.name} — ${item.quantity} шт. (${itemSum} ₴)\n`;
+        message += `${index + 1}. 🛒 ${item.name} — ${item.quantity} шт. (${itemSum} ₴)\n`;
     });
 
     message += `\n💰 Загальна сума замовлення: ${totalSum} ₴`;
@@ -100,5 +100,45 @@ function sendToTelegram() {
     const encodedMessage = encodeURIComponent(message);
     const telegramUrl = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedMessage}`;
 
+    // 1. Відкриваємо Telegram в новій вкладці
     window.open(telegramUrl, '_blank');
+
+    // 2. Очищаємо масив кошика
+    cart = [];
+
+    // 3. Перемальовуємо кошик на сайті (він стане порожнім, лічильник скинеться на 0)
+    updateCartUI();
+
+    // 4. Закриваємо віджет кошика (прибираємо клас active)
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartModal.classList.remove('active');
+    }
+
+    // 5. Показуємо красиве вікно подяки українською мовою
+    showThankYouModal();
+}
+
+// Функція для генерації красивого модального вікна подяки
+function showThankYouModal() {
+    const modal = document.createElement('div');
+    modal.className = 'thank-you-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-icon">❤️</div>
+            <h2>Дякуємо за замовлення!</h2>
+            <p>Ваша заявка успішно сформована та надіслана.</p>
+            <p>Менеджер уже чекає на вас у <strong>Telegram</strong> для підтвердження деталей!</p>
+            <button class="close-modal-btn" onclick="this.parentElement.parentElement.remove()">Чудово</button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+
+    // Автоматично видаляємо вікно через 7 секунд, якщо клієнт не закрив сам
+    setTimeout(() => {
+        if (modal.parentNode) {
+            modal.remove();
+        }
+    }, 7000);
 }
