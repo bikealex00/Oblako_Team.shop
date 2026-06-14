@@ -1,9 +1,8 @@
-/* Загальні налаштування */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
 }
 
 body {
@@ -13,7 +12,6 @@ body {
     position: relative;
 }
 
-/* --- АНІМАЦІЯ ХМАР НА ЗАДНЬОМУ ПЛАНІ --- */
 .clouds-container {
     position: fixed;
     top: 0;
@@ -23,7 +21,7 @@ body {
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
-    opacity: 0.25; /* Прозорість хмар */
+    opacity: 0.25;
 }
 
 .cloud {
@@ -47,7 +45,6 @@ body {
     top: 45%;
     left: -600px;
     animation: floatHorizontal 50s linear infinite;
-    animation-delay: 5s;
 }
 
 .cloud-3 {
@@ -56,7 +53,6 @@ body {
     top: 75%;
     left: -300px;
     animation: floatHorizontal 25s linear infinite;
-    animation-delay: 12s;
 }
 
 @keyframes floatHorizontal {
@@ -64,13 +60,12 @@ body {
     100% { transform: translateX(calc(100vw + 600px)); }
 }
 
-/* --- ХЕДЕР ТА НАВІГАЦІЯ --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 5%;
-    background-color: rgba(17, 17, 17, 0.9);
+    background-color: #111111;
     border-bottom: 2px solid #ff003c;
     position: sticky;
     top: 0;
@@ -80,21 +75,9 @@ header {
 .logo {
     font-size: 24px;
     font-weight: bold;
-    letter-spacing: 1px;
 }
 
 .logo span {
-    color: #ff003c;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-right: 20px;
-    transition: color 0.3s;
-}
-
-nav a:hover {
     color: #ff003c;
 }
 
@@ -104,35 +87,22 @@ nav a:hover {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s;
 }
 
-.cart-icon:hover {
-    background-color: #cc0030;
-}
-
-/* --- БАННЕР --- */
 .hero {
-    height: 60vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(11,11,11,1)), url('https://images.unsplash.com/photo-1542332213-9b5a5a3fda35?q=80&w=1000') center/cover;
+    background: #111;
     padding: 20px;
 }
 
 .hero h1 {
-    font-size: 48px;
+    font-size: 36px;
     margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.hero p {
-    font-size: 18px;
-    color: #cccccc;
-    margin-bottom: 25px;
 }
 
 .btn {
@@ -145,37 +115,20 @@ nav a:hover {
     font-weight: bold;
     border: none;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
-.btn:hover {
-    background-color: #cc0030;
-}
-
-/* --- КАТАЛОГ --- */
 main {
-    padding: 60px 5%;
+    padding: 40px 5%;
 }
 
 .section-title {
     text-align: center;
     margin-bottom: 40px;
-    font-size: 32px;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background-color: #ff003c;
-    margin: 10px auto 0;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
 }
 
@@ -185,22 +138,11 @@ main {
     border-radius: 10px;
     padding: 25px;
     text-align: center;
-    transition: transform 0.3s, border-color 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    border-color: #ff003c;
 }
 
 .product-img {
-    font-size: 64px;
+    font-size: 48px;
     margin-bottom: 15px;
-}
-
-.product-card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
 }
 
 .price {
@@ -217,16 +159,9 @@ main {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
     width: 100%;
-    transition: background 0.3s, color 0.3s;
 }
 
-.btn-buy:hover {
-    background-color: #ff003c;
-}
-
-/* --- КОШИК --- */
 .cart-modal {
     position: fixed;
     top: 0;
@@ -235,7 +170,6 @@ main {
     height: 100%;
     background-color: #111;
     border-left: 2px solid #ff003c;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
     z-index: 1000;
     transition: right 0.4s ease;
     padding: 30px;
@@ -257,12 +191,6 @@ main {
     right: 20px;
     font-size: 28px;
     cursor: pointer;
-}
-
-.cart-modal h2 {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #222;
-    padding-bottom: 10px;
 }
 
 #cart-items-list {
@@ -289,16 +217,5 @@ main {
     display: flex;
     justify-content: space-between;
     font-size: 20px;
-    font-weight: bold;
     margin: 20px 0;
-    border-top: 1px solid #222;
-    padding-top: 15px;
-}
-
-#cart-total-price {
-    color: #ff003c;
-}
-
-.btn-order {
-    width: 100%;
 }
