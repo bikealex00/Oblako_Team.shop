@@ -1,71 +1,91 @@
-const products = [
-    { id: 1, name: 'Чаша Oblako Phunnel M Stone', price: 490, cat: 'Чаши', img: '🏺' },
-    { id: 2, name: 'Кальян Amy Deluxe SS - Black', price: 3100, cat: 'Кальяны', img: '💨' },
-    { id: 3, name: 'Колба Craft Clear', price: 650, cat: 'Колби', img: '⚱️' },
-    { id: 4, name: 'Щипці Blade Hookah Premium', price: 420, cat: 'Аксесуари', img: '✂️' },
-    { id: 5, name: 'Шило Oblako Silver Edition', price: 250, cat: 'Аксесуари', img: '📍' },
-    { id: 6, name: 'Чаша Oblako Flow M Yellow', price: 550, cat: 'Чаші', img: '🌪️' }
-];
+let cart = [];
 
-let cart = JSON.parse(localStorage.getItem('oblakoteam_cart')) || [];
+// Ссылка на твой Telegram (вместо 'OblakoTeam_Work' напиши ваш реальный username)
+const TELEGRAM_USERNAME = "OblakoTeam_Work"; 
 
-function render(data = products) {
-    const grid = document.getElementById('products-grid');
-    grid.innerHTML = data.map(p => `
-        <div class="card">
-            <div class="card-img">${p.img}</div>
-            <p style="color:#888; font-size:12px;">${p.cat}</p>
-            <h3 style="margin: 10px 0; font-size: 16px;">${p.name}</h3>
-            <span class="price">${p.price} ₴</span>
-            <button class="buy-btn" onclick="addToCart(${p.id})">Купити</button>
-        </div>
-    `).join('');
+// Відкрити / Закрити кошик
+function toggleCart() {
+    document.getElementById('cartModal').classList.toggle('active');
 }
 
-window.addToCart = (id) => {
-    const p = products.find(x => x.id === id);
-    cart.push(p);
-    updateCart();
-    toggleCart(); // Сразу открываем корзину, чтобы человек видел заказ
-};
+// Додати товар до кошика
+function addToCart(name, price) {
+    const existingItem = cart.find(item => item.name === name);
 
-window.toggleCart = () => {
-    const sb = document.getElementById('cart-sidebar');
-    const ov = document.getElementById('cart-overlay');
-    sb.classList.toggle('active');
-    ov.style.display = sb.classList.contains('active') ? 'block' : 'none';
-};
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name: name, price: price, quantity: 1 });
+    }
 
-function updateCart() {
-    localStorage.setItem('oblakoteam_cart', JSON.stringify(cart));
-    document.getElementById('cart-count').innerText = cart.length;
-    const itemsDiv = document.getElementById('cart-items-content');
-    
-    itemsDiv.innerHTML = cart.map((item, i) => `
-        <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #f5f5f5; padding-bottom:10px;">
-            <div><b>${item.name}</b><br><span style="color:#0066cc">${item.price} ₴</span></div>
-            <button onclick="remove(${i})" style="border:none; background:none; cursor:pointer; color:#ccc;">✕</button>
-        </div>
-    `).join('');
-    
-    const total = cart.reduce((s, i) => s + i.price, 0);
-    document.getElementById('total-price').innerText = total + ' ₴';
+    updateCartUI();
 }
 
-window.remove = (i) => { cart.splice(i, 1); updateCart(); };
+// Оновлення відображення кошика
+function updateCartUI() {
+    const cartCountEl = document.getElementById('cart-count');
+    const itemsListEl = document.getElementById('cart-items-list');
+    const totalPriceEl = document.getElementById('cart-total-price');
 
-window.filterCat = (cat) => {
-    if(cat === 'Все') render(products);
-    else render(products.filter(p => p.cat === cat));
-};
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountEl.textContent = totalCount;
 
-window.sendToTelegram = () => {
-    if(cart.length === 0) return alert('Кошик порожній!');
-    const orderText = cart.map(item => `• ${item.name} (${item.price} ₴)`).join('%0A');
-    const total = cart.reduce((s, i) => s + i.price, 0);
-    const message = `Вітаю! Хочу зробити замовлення в OblakoTeam Store:!%0A%0A${orderText}%0A%0AРазом: ${total} ₴`;
-    window.open(`https://t.me/Market199?text=${message}`, '_blank');
-};
+    itemsListEl.innerHTML = '';
 
-render();
-updateCart();
+    if (cart.length === 0) {
+        itemsListEl.innerHTML = '<p class="empty-text">Кошик поки що порожній</p>';
+        totalPriceEl.textContent = '0 ₴';
+        return;
+    }
+
+    let totalSum = 0;
+
+    cart.forEach(item => {
+        const itemSum = item.price * item.quantity;
+        totalSum += itemSum;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+            <div>
+                <div><strong>${item.name}</strong></div>
+                <small>${item.price} ₴ x ${item.quantity}</small>
+            </div>
+            <div>${itemSum} ₴</div>
+        `;
+        itemsListEl.appendChild(itemDiv);
+    });
+
+    totalPriceEl.textContent = `${totalSum} ₴`;
+}
+
+// Формування замовлення українською мовою та відправка в Telegram
+function sendToTelegram() {
+    if (cart.length === 0) {
+        alert("Ваш кошик порожній!");
+        return;
+    }
+
+    // Привітання та початок тексту замовлення
+    let message = "Привіт, OblakoTeam! Я хочу зробити замовлення на вашому сайті:\n\n";
+    let totalSum = 0;
+
+    // Збір усіх позицій
+    cart.forEach((item, index) => {
+        const itemSum = item.price * item.quantity;
+        totalSum += itemSum;
+        message += `${index + 1}. ${item.name} — ${item.quantity} шт. (${itemSum} ₴)\n`;
+    });
+
+    // Загальна сума
+    message += `\n💰 Загальна сума за все: ${totalSum} ₴`;
+
+    // Кодування тексту для URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Посилання на переписку
+    const telegramUrl = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedMessage}`;
+
+    // Перехід в Telegram у новій вкладці
+    window.open(telegramUrl, '_blank');
+}
