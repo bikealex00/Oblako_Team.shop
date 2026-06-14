@@ -3,75 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OblakoTeam Store | Твій ідеальний вечір</title>
+    <title>OblakoTeam Store — Кальяни та Аксесуари</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="clouds-container">
-        <div class="cloud c1">☁️</div>
-        <div class="cloud c2">☁️</div>
-        <div class="cloud c3">☁️</div>
-        <div class="cloud c4">☁️</div>
-        <div class="cloud c5">☁️</div>
-        <div class="cloud c6">☁️</div>
-        <div class="cloud c7">☁️</div>
-        <div class="cloud c8">☁️</div>
-        <div class="cloud c9">☁️</div>
-        
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
     </div>
 
-    <header class="header">
-        <div class="container flex-header">
-            <div class="logo">OBLAKO<span>TEAM</span></div>
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Пошук аксесуарів...">
-                <button onclick="searchProduct()">🔍</button>
-            </div>
-            <div class="cart-widget" onclick="toggleCart()">
-                <span class="cart-icon">🛒</span>
-                <span id="cart-count">0</span>
-            </div>
-        </div>
-        <nav class="nav-cats">
-            <div class="container flex-cats">
-                <button onclick="filterCat('Все')">Усі товари</button>
-                <button onclick="filterCat('Кальяни')">Кальяни</button>
-                <button onclick="filterCat('Чаші')">Чаші</button>
-                <button onclick="filterCat('Колби')">Колби</button>
-                <button onclick="filterCat('Аксесуари')">Щипці</button>
-                <button onclick="filterCat('Аксесуари')">Вугілля</button>
-                <button onclick="filterCat('Аксесуари')">Колауди</button>
-                <button onclick="filterCat('Аксесуари')">Аксесуари</button>
-            </div>
+    <header>
+        <div class="logo">OblakoTeam <span>Store</span></div>
+        <nav>
+            <a href="#catalog">Каталог</a>
+            <a href="#about">Про нас</a>
         </nav>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 Кошик (<span id="cart-count">0</span>)
+        </div>
     </header>
 
-    <main class="container">
-        <section class="hero-banner">
-            <h1> </h1>
-            <p class="slogan">Твій ідеальний вечір починається з Oblako.</p>
-            <p class="subtext">Преміальні кальяни та аксесуари для тих, хто цінує якість.</p>
-        </section>
+    <section class="hero">
+        <h1>Преміум кальяни та аксесуари</h1>
+        <p>Кращий дим для вашої атмосфери</p>
+        <a href="#catalog" class="btn">До каталогу</a>
+    </section>
 
-        <h2 class="section-title">Каталог товарів</h2>
-        <div class="products-grid" id="products-grid"></div>
+    <main id="catalog">
+        <h2 class="section-title">Наш асортимент</h2>
+        <div class="products-grid">
+            
+            <div class="product-card">
+                <div class="product-img">💨</div>
+                <h3>Кальян Alpha Hookah</h3>
+                <p class="price">12000 <span>₴</span></p>
+                <button class="btn-buy" onclick="addToCart('Кальян Alpha Hookah', 12000)">У кошик</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">🥣</div>
+                <h3>Чаша Облако (Phunnel)</h3>
+                <p class="price">1500 <span>₴</span></p>
+                <button class="btn-buy" onclick="addToCart('Чаша Облако (Phunnel)', 1500)">У кошик</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">🪵</div>
+                <h3>Вугілля CocoLoco 1кг</h3>
+                <p class="price">450 <span>₴</span></p>
+                <button class="btn-buy" onclick="addToCart('Вугілля CocoLoco 1кг', 450)">У кошик</button>
+            </div>
+
+        </div>
     </main>
 
-    <div id="cart-overlay" onclick="toggleCart()"></div>
-    <div id="cart-sidebar">
-        <div class="cart-top">
-            <h3>Ваше замовлення</h3>
-            <button class="close-cart" onclick="toggleCart()">✕</button>
-        </div>
-        <div id="cart-items-content"></div>
-        <div class="cart-bottom">
-            <div class="total-row">
-                <span>Разом:</span>
-                <span id="total-price">0 ₴</span>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+            <h2>Ваш кошик</h2>
+            <div id="cart-items-list">
+                <p class="empty-text">Кошик поки що порожній</p>
             </div>
-            <button class="order-submit" onclick="sendToTelegram()">Оформити у Telegram</button>
+            <div class="cart-summary">
+                <span>Всього:</span>
+                <span id="cart-total-price">0 ₴</span>
+            </div>
+            <button class="btn btn-order" onclick="sendToTelegram()">Оформити в Telegram</button>
         </div>
     </div>
 
