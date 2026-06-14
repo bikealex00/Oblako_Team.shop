@@ -135,10 +135,5 @@ function showThankYouModal() {
     
     document.body.appendChild(modal);
 
-    // Автоматично видаляємо вікно через 7 секунд, якщо клієнт не закрив сам
-    setTimeout(() => {
-        if (modal.parentNode) {
-            modal.remove();
-        }
-    }, 7000);
+    
 }
