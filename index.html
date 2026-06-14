@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OblakoTeam Store — Кальяни та Аксесуари</title>
+    <title>OblakoTeam — Преміум Кальяни</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="clouds-container">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-deep-1"></div>
+        <div class="cloud cloud-deep-2"></div>
+        <div class="cloud cloud-deep-3"></div>
+        <div class="cloud cloud-deep-4"></div>
     </div>
 
     <div id="welcome-screen">
         <div class="welcome-content">
+            <div class="welcome-badge">Premium Space</div>
             <div class="welcome-logo">OblakoTeam <span>Store</span></div>
             <h2>Вітаємо в просторі Облако! 💨</h2>
-            <p>Місце, де народжується ідеальний дим та якісний відпочинок.</p>
-            <button class="btn btn-welcome" onclick="enterStore()">Увійти в магазин</button>
+            <p>Занурся в атмосферу густого диму та найкращих кальянів. Твій ідеальний відпочинок починається тут.</p>
+            <button class="btn btn-welcome" onclick="enterStore()">Відкрити простір</button>
         </div>
     </div>
 
@@ -27,45 +29,100 @@
         <div class="logo">OblakoTeam <span>Store</span></div>
         <nav>
             <a href="#catalog">Каталог</a>
+            <a href="#about">Про нас</a>
+            <a href="#reviews">Відгуки</a>
+            <a href="#contacts">Контакти</a>
         </nav>
         <div class="cart-icon" onclick="toggleCart()">
             🛒 Кошик (<span id="cart-count">0</span>)
         </div>
     </header>
 
-    <section class="hero class-content hidden-content">
-        <h1>Преміум кальяни та аксесуари</h1>
-        <p>Кращий дим для вашої атмосфери</p>
-        <a href="#catalog" class="btn">До каталогу</a>
+    <section class="hero hidden-content">
+        <h1>Простір твого диму</h1>
+        <p>Ексклюзивні кальяни та аксесуари преміум якості</p>
+        <a href="#catalog" class="btn">Перейти до вибору</a>
     </section>
 
     <main id="catalog" class="hidden-content">
-        <h2 class="section-title">Наш асортимент</h2>
+        <h2 class="section-title">Каталог продукції</h2>
+        
         <div class="products-grid">
-            
-            <div class="product-card">
+            <div class="product-card" data-category="hookahs">
+                <div class="product-tag">Кальяни</div>
                 <div class="product-img">💨</div>
-                <h3>Кальян Alpha Hookah</h3>
+                <h3>Кальян Alpha Hookah Model X</h3>
                 <p class="price">12000 <span>₴</span></p>
-                <button class="btn-buy" onclick="addToCart('Кальян Alpha Hookah', 12000)">У кошик</button>
+                <button class="btn-buy" onclick="addToCart('Кальян Alpha Hookah Model X', 12000)">У кошик</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-category="hookahs">
+                <div class="product-tag">Кальяни</div>
+                <div class="product-img">🌪️</div>
+                <h3>Кальян MattPear Simple</h3>
+                <p class="price">9500 <span>₴</span></p>
+                <button class="btn-buy" onclick="addToCart('Кальян MattPear Simple', 9500)">У кошик</button>
+            </div>
+
+            <div class="product-card" data-category="bowls">
+                <div class="product-tag">Чаші</div>
                 <div class="product-img">🥣</div>
-                <h3>Чаша Облако (Phunnel)</h3>
+                <h3>Чаша Облако Phunnel L</h3>
                 <p class="price">1500 <span>₴</span></p>
-                <button class="btn-buy" onclick="addToCart('Чаша Облако (Phunnel)', 1500)">У кошик</button>
+                <button class="btn-buy" onclick="addToCart('Чаша Облако Phunnel L', 1500)">У кошик</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-category="bowls">
+                <div class="product-tag">Чаші</div>
+                <div class="product-img">🏺</div>
+                <h3>Чаша Solaris Mercury</h3>
+                <p class="price">650 <span>₴</span></p>
+                <button class="btn-buy" onclick="addToCart('Чаша Solaris Mercury', 650)">У кошик</button>
+            </div>
+
+            <div class="product-card" data-category="stuff">
+                <div class="product-tag">Вугілля</div>
                 <div class="product-img">🪵</div>
-                <h3>Вугілля CocoLoco 1кг</h3>
+                <h3>Вугілля CocoLoco 26мм (1кг)</h3>
                 <p class="price">450 <span>₴</span></p>
-                <button class="btn-buy" onclick="addToCart('Вугілля CocoLoco 1кг', 450)">У кошик</button>
+                <button class="btn-buy" onclick="addToCart('Вугілля CocoLoco 26мм (1кг)', 450)">У кошик</button>
             </div>
 
+            <div class="product-card" data-category="stuff">
+                <div class="product-tag">Аксесуари</div>
+                <div class="product-img">🔌</div>
+                <h3>Щипці для вугілля Blade</h3>
+                <p class="price">800 <span>₴</span></p>
+                <button class="btn-buy" onclick="addToCart('Щипці для вугілля Blade', 800)">У кошик</button>
+            </div>
         </div>
     </main>
+
+    <section id="about" class="info-section hidden-content">
+        <h2 class="section-title">Про наш простір</h2>
+        <p>OblakoTeam — це не просто магазин, це спільнота поціновувачів якісного та густого диму. Ми ретельно відбираємо кожен бренд, контролюємо якість матеріалів та пропонуємо лише те, чим користуємося самі. З нами ваш відпочинок вийде на новий рівень.</p>
+    </section>
+
+    <section id="reviews" class="info-section hidden-content">
+        <h2 class="section-title">Відгуки клієнтів</h2>
+        <div class="reviews-container">
+            <div class="review-card">
+                <p class="review-text">"Найкращі хмари диму тільки з вашими чашами! Доставка мега швидка, сервіс на висоті."</p>
+                <span class="review-author">@vlad_hookah</span>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Замовив Alpha Hookah, оригінал, все запаковано ідеально. Консультація топ!"</p>
+                <span class="review-author">@dima_smoke</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" class="info-section hidden-content">
+        <h2 class="section-title">Контакти</h2>
+        <p>📍 Працюємо по всій Україні (Доставка Новою Поштою)</p>
+        <p>📱 Наш Telegram для прямих запитань: <strong>@OblakoTeam_Work</strong></p>
+        <p>⏰ Графік роботи: Щодня з 10:00 до 22:00</p>
+    </section>
 
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
