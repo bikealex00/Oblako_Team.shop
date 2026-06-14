@@ -429,3 +429,180 @@ main, .info-section {
 .cart-summary { display: flex; justify-content: space-between; font-size: 22px; font-weight: 800; margin: 25px 0; border-top: 1px solid #1a1a1a; padding-top: 20px; }
 #cart-total-price { color: #ff003c; }
 .btn-order { width: 100%; }
+
+/* ==========================================
+   НОВІ СТИЛІ: АДАПТАЦІЯ ДЛЯ ТЕЛЕФОНІВ
+   ========================================== */
+@media (max-width: 768px) {
+    /* 1. Облака делаем более тусклыми, чтобы текст легко читался */
+    .clouds-container {
+        opacity: 0.25;
+    }
+
+    /* 2. Адаптация экрана приветствия */
+    .welcome-logo {
+        font-size: 38px;
+    }
+    #welcome-screen h2 {
+        font-size: 24px;
+    }
+    #welcome-screen p {
+        font-size: 14px;
+    }
+    .btn-welcome {
+        padding: 14px 35px;
+        font-size: 16px;
+    }
+
+    /* 3. Шапка сайта и меню */
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 5%;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 0;
+    }
+
+    nav a {
+        margin: 0 8px;
+        font-size: 15px;
+    }
+
+    /* 4. Главный баннер */
+    .hero {
+        height: 45vh;
+    }
+    .hero h1 {
+        font-size: 34px;
+    }
+    .hero p {
+        font-size: 16px;
+    }
+
+    /* 5. Отступы секций и сетка товаров */
+    main, .info-section {
+        padding: 40px 5%;
+    }
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    .products-grid {
+        grid-template-columns: 1fr; /* Один товар под другим */
+        gap: 25px;
+    }
+    .product-card {
+        max-width: 350px;
+        margin: 0 auto; /* Центрируем карточки на экране смартфона */
+    }
+
+    /* 6. Адаптация корзины на мобильных */
+    .cart-modal {
+        width: 100%;
+        right: -100%;
+        padding: 20px;
+    }
+}
+
+/* ==========================================
+   НОВІ СТИЛІ: СТИЛЬНЕ ВІКНО ПОДЯКИ (ПІСЛЯ ЗАМОВЛЕННЯ)
+   ========================================== */
+.thank-you-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeInModal 0.4s ease forwards;
+}
+
+.thank-you-modal .modal-content {
+    background: linear-gradient(135deg, #121212 0%, #1c1c1c 100%);
+    border: 2px solid #ff003c;
+    box-shadow: 0 0 25px rgba(255, 0, 60, 0.4);
+    border-radius: 15px;
+    padding: 35px 25px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    color: #fff;
+    transform: scale(0.8);
+    animation: scaleUpModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.thank-you-modal .modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.thank-you-modal h2 {
+    color: #ff003c;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.thank-you-modal p {
+    font-size: 1rem;
+    color: #cccccc;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.thank-you-modal p strong {
+    color: #ff003c;
+}
+
+.close-modal-btn {
+    background-color: #ff003c;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(255, 0, 60, 0.3);
+}
+
+.close-modal-btn:hover {
+    background-color: #fff;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUpModal {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    20% { transform: scale(1.15); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.15); }
+    80% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
