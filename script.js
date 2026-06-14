@@ -1,14 +1,34 @@
+// Кошик для товарів
 let cart = [];
 
-// Ссылка на твой Telegram (вместо 'OblakoTeam_Work' напиши ваш реальный username)
+// Ссылка на твой Telegram (впиши имя аккаунта без значка @)
 const TELEGRAM_USERNAME = "OblakoTeam_Work"; 
 
-// Відкрити / Закрити кошик
+// Логіка входу через екран привітання
+function enterStore() {
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const mainContents = document.querySelectorAll('.hidden-content');
+
+    // Плавно ховаємо вітальну заставку
+    welcomeScreen.style.opacity = '0';
+    welcomeScreen.style.transform = 'scale(1.03)';
+
+    // Після завершення CSS-анімації повністю видаляємо заставку та проявляємо сайт
+    setTimeout(() => {
+        welcomeScreen.style.display = 'none';
+        
+        mainContents.forEach(element => {
+            element.classList.add('show-content');
+        });
+    }, 700);
+}
+
+// Перемикач віджета кошика (відкрити/закрити)
 function toggleCart() {
     document.getElementById('cartModal').classList.toggle('active');
 }
 
-// Додати товар до кошика
+// Додавання елементів до кошика
 function addToCart(name, price) {
     const existingItem = cart.find(item => item.name === name);
 
@@ -21,7 +41,7 @@ function addToCart(name, price) {
     updateCartUI();
 }
 
-// Оновлення відображення кошика
+// Оновлення кошика
 function updateCartUI() {
     const cartCountEl = document.getElementById('cart-count');
     const itemsListEl = document.getElementById('cart-items-list');
@@ -48,10 +68,10 @@ function updateCartUI() {
         itemDiv.className = 'cart-item';
         itemDiv.innerHTML = `
             <div>
-                <div><strong>${item.name}</strong></div>
-                <small>${item.price} ₴ x ${item.quantity}</small>
+                <div style="font-weight: 600; margin-bottom: 4px;">${item.name}</div>
+                <small style="color: #888;">${item.price} ₴ за шт. × ${item.quantity}</small>
             </div>
-            <div>${itemSum} ₴</div>
+            <div style="font-weight: bold; color: #ff003c;">${itemSum} ₴</div>
         `;
         itemsListEl.appendChild(itemDiv);
     });
@@ -59,33 +79,26 @@ function updateCartUI() {
     totalPriceEl.textContent = `${totalSum} ₴`;
 }
 
-// Формування замовлення українською мовою та відправка в Telegram
+// Генерація повідомлення та надсилання в Telegram
 function sendToTelegram() {
     if (cart.length === 0) {
         alert("Ваш кошик порожній!");
         return;
     }
 
-    // Привітання та початок тексту замовлення
     let message = "Привіт, OblakoTeam! Я хочу зробити замовлення на вашому сайті:\n\n";
     let totalSum = 0;
 
-    // Збір усіх позицій
     cart.forEach((item, index) => {
         const itemSum = item.price * item.quantity;
         totalSum += itemSum;
         message += `${index + 1}. ${item.name} — ${item.quantity} шт. (${itemSum} ₴)\n`;
     });
 
-    // Загальна сума
-    message += `\n💰 Загальна сума за все: ${totalSum} ₴`;
+    message += `\n💰 Загальна сума замовлення: ${totalSum} ₴`;
 
-    // Кодування тексту для URL
     const encodedMessage = encodeURIComponent(message);
-    
-    // Посилання на переписку
     const telegramUrl = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedMessage}`;
 
-    // Перехід в Telegram у новій вкладці
     window.open(telegramUrl, '_blank');
 }
